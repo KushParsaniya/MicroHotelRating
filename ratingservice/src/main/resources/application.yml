@@ -1,0 +1,18 @@
+server:
+  port: 8083
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://${env.DB_HOST}:${env.DB_PORT}/${env.DB_NAME}
+  application:
+    name: rating-service
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
