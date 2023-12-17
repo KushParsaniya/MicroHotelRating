@@ -1,7 +1,6 @@
 package dev.kush.hotelservice.controller;
 
 import dev.kush.hotelservice.models.Hotel;
-import dev.kush.hotelservice.models.HotelDao;
 import dev.kush.hotelservice.services.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +34,7 @@ public class HotelController {
     }
 
     @PostMapping("/hotelIds")
-    public List<Hotel> getHotelsByHotelIds(@RequestBody HotelDao hotelDao){
-        return hotelService.getHotelsByHotelIds(hotelDao.hotelIds());
+    public List<Hotel> getHotelsByHotelIds(@RequestBody List<Long> hotelIds) {
+        return hotelService.getHotelsByHotelIds(hotelIds);
     }
 }

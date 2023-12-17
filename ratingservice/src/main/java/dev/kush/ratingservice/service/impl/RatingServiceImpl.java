@@ -21,6 +21,9 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public Rating saveRating(Rating rating) {
+        if (rating.getHotelId() == null || rating.getUserId() == null) {
+            throw new IllegalArgumentException("Invalid rating data");
+        }
         return ratingRepository.save(rating);
     }
 
@@ -36,7 +39,9 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public List<String> getAllRatingsIdByUserId(Long userId) {
-
+        if (userId == null) {
+            throw new IllegalArgumentException("userId cannot be null");
+        }
         // map all ratings to ratingId
         List<String> ratingIds = ratingRepository.getAllRatingsIdByUserId(userId)
                 .stream().map(Rating::getRatingId).toList();
@@ -56,6 +61,10 @@ public class RatingServiceImpl implements RatingService {
     }
 
     public Rating findById(String ratingId){
+        if(ratingId == null || ratingId.isEmpty()){
+            throw new IllegalArgumentException("Invalid ratingId");
+        }
+
         return ratingRepository.findById(ratingId).orElseThrow(
                 () -> new ResourceNotFoundException("Rating with id " + ratingId + " not found.")
         );
