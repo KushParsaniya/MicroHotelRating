@@ -1,7 +1,6 @@
 package dev.kush.userservice.feign;
 
 import dev.kush.userservice.models.Rating;
-import dev.kush.userservice.models.RatingDao;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,5 +15,5 @@ public interface RatingFeign {
     public List<String> getAllRatingsIdByUserId(@PathVariable Long userId);
 
     @PostMapping("ratings/ratingIds")
-    public List<Rating> getAllRatingsByRatingsIds(@RequestBody RatingDao ratingDao);
+    public List<Rating> getAllRatingsByRatingsIds(@RequestBody List<String> ratingIds);
 }

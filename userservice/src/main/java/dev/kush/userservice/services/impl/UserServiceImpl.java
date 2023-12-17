@@ -54,12 +54,12 @@ public class UserServiceImpl implements UserService {
 
         // now call rating-service's getAllRatingsByRatingsIds which gives all
         // rating related to List of ratingsIds
-        List<Rating> ratings = ratingFeign.getAllRatingsByRatingsIds(new RatingDao(ratingIds));
+        List<Rating> ratings = ratingFeign.getAllRatingsByRatingsIds(ratingIds);
         // fetch hotel ids from ratings
         List<Long> hotelIds = ratings.stream().map(Rating::hotelId).toList();
 
 //      now get all the hotels form hotel-service
-        List<Hotel> hotels = hotelFeign.getHotelsByHotelIds(new HotelDao(hotelIds));
+        List<Hotel> hotels = hotelFeign.getHotelsByHotelIds(hotelIds);
 
         // create userRatings List from hotels and ratings
         List<HotelServiceDao> userRatings = IntStream.range(0, hotels.size())
