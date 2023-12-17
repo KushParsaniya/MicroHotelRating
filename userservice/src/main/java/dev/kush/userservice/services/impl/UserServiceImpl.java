@@ -65,20 +65,18 @@ public class UserServiceImpl implements UserService {
 //      now get all the hotels form hotel-service
         List<Hotel> hotels = hotelFeign.getHotelsByHotelIds(hotelIds);
 
+
         // create userRatings List from hotels and ratings
         List<HotelServiceDao> userRatings = IntStream.range(0, hotels.size())
                 .mapToObj(
                         index -> {
                             Rating rating = ratings.get(index);
                             Hotel hotel = hotels.get(index);
-                            return new HotelServiceDao(
-                                    hotel.hotelId(),
-                                    hotel.name(),
-                                    hotel.location(),
-                                    hotel.description(),
-                                    rating.rating(),
-                                    rating.comment()
-                            );
+
+                            // convert rating to ratingDao
+                            RatingDao ratingDao = new RatingDao(rating.rating(), rating.comment());
+
+                            return new HotelServiceDao(hotel,ratingDao);
                         }).toList();
 
 
