@@ -1,8 +1,8 @@
 server:
   port: 8082
 
-
 spring:
+  #for database
   datasource:
     url: jdbc:postgresql://${env.DB_HOST}:${env.DB_PORT}/${env.DB_NAME}
     username: ${env.DB_USER}
@@ -17,6 +17,8 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   application:
     name: hotel-service
+
+#for eureka
 eureka:
   client:
     register-with-eureka: true
@@ -25,3 +27,9 @@ eureka:
       defaultZone: http://localhost:8761/eureka
   instance:
     prefer-ip-address: true
+
+# for zipkin
+management:
+  tracing:
+    sampling:
+      probability: 1.0

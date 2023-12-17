@@ -2,6 +2,7 @@ server:
   port: 8081
 
 spring:
+#Database
   datasource:
     url: jdbc:mysql://${env.DB_HOST}:${env.DB_PORT}/${env.DB_NAME}
     username: ${env.DB_USER}
@@ -16,6 +17,8 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
   application:
     name: user-service
+
+#for eureka
 eureka:
   instance:
     prefer-ip-address: true
@@ -24,3 +27,11 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: http://localhost:8761/eureka
+
+#for zipkin
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
+

@@ -17,3 +17,9 @@ eureka:
 
     fetch-registry: true
     register-with-eureka: true
+
+# for zipkin
+management:
+  tracing:
+    sampling:
+      probability: 1.0

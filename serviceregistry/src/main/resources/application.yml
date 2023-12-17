@@ -1,9 +1,16 @@
 server:
   port: 8761
 
+# for eureka-server
 eureka:
   instance:
     hostname: localhost
   client:
     register-with-eureka: false
     fetch-registry: false
+
+# for zipkin
+management:
+  tracing:
+    sampling:
+      probability: 1.0
