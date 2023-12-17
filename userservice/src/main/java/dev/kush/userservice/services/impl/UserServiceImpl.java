@@ -47,6 +47,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUsersWithDetails(Long userId) {
 
+        if (userId == null) {
+            throw new IllegalArgumentException("UserId cannot be null");
+        }
+
         User user = findUserById(userId);
 
         // call rating-service's getAllRatingsIdByUserId which gives all rating id related to userID
@@ -84,6 +88,9 @@ public class UserServiceImpl implements UserService {
 
     // Refactored method to avoid repeating code
     private User findUserById(Long userId) {
+        if(userId == null) {
+            throw new IllegalArgumentException("userId cannot be null");
+        }
         return userRepository.findById(userId)
                 .orElseThrow(
                         () -> new ResourceNotFoundException("User with id " + userId + " not found.")

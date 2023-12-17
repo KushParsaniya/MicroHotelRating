@@ -1,7 +1,6 @@
 package dev.kush.ratingservice.controler;
 
 import dev.kush.ratingservice.models.Rating;
-import dev.kush.ratingservice.models.RatingDao;
 import dev.kush.ratingservice.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +39,7 @@ public class RatingController {
     }
 
     @PostMapping("/ratingIds")
-    public List<Rating> getAllRatingsByRatingsIds(@RequestBody RatingDao ratingDao){
-        return ratingService.getAllRatingsByRatingsIds(ratingDao.ratingIds());
+    public List<Rating> getAllRatingsByRatingsIds(@RequestBody List<String> ratingIds){
+        return ratingService.getAllRatingsByRatingsIds(ratingIds);
     }
 }

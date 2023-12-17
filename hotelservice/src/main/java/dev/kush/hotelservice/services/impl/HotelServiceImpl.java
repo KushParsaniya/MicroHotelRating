@@ -36,7 +36,7 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public List<Hotel> getHotelsByHotelIds(List<Long> hotelIds) {
-        if (hotelIds.isEmpty()) {
+        if (hotelIds == null || hotelIds.isEmpty()) {
             return List.of();
         }
         List<Hotel> hotels = hotelIds.stream().map(this::findById).toList();
@@ -44,6 +44,10 @@ public class HotelServiceImpl implements HotelService {
     }
 
     public Hotel findById(Long hotelId) {
+        if (hotelId == null){
+            throw new IllegalArgumentException("hotelId cannot be null.");
+        }
+
         return hotelRepository.findById(hotelId).orElseThrow(
                 () -> new ResourceNotFoundException("Hotel with id " + hotelId + " not found")
         );
