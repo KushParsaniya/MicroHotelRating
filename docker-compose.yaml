@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  naming-server:
+    image: kushparsaniya/microservice02-serviceregistry:0.0.1-SNAPSHOT
+    ports:
+      - "8761:8761"
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: microservice
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Kush1234
+  
+  # for user-service
+  user-service:
+    image: kushparsaniya/microservice02-userservice:0.0.1-SNAPSHOT
+    ports: 
+      - "8081:8081"
+    depends_on:
+      - postgres
+      - naming-server
+    # command: ["dockerize", "-wait", "tcp://mysql:3306", "-timeout", "60s", "java", "-jar", "userservice-0.0.1-SNAPSHOT.jar"]
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/microservice
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: Kush1234
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+
+  # for hotel-service
+      
+  hotel-service:
+    image: kushparsaniya/microservice02-hotelservice:0.0.1-SNAPSHOT
+    ports:
+      - "8082:8082"
+    depends_on:
+      - postgres
+      - naming-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/microservice
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: Kush1234
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+
+  # for rating-service
+  mongodb:
+    image: mongo
+    ports: 
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: ratings
+    
+  rating-service:
+    image: kushparsaniya/microservice02-ratingservice:0.0.1-SNAPSHOT
+    ports:
+      - "8083:8083"
+    depends_on:
+      - mongodb
+      - naming-server
+    environment:
+      SPRING.DATA.MONGODB.URI: mongodb://mongodb:27017/ratings
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+    
+  # for api-gateway 
+  api-gateway:
+    image: kushparsaniya/microservice02-apigateway:0.0.1-SNAPSHOT
+    ports:
+      - "8765:8765"
+    depends_on:
+      - naming-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+
+        
+
+        
+    
+  
