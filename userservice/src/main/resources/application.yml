@@ -4,17 +4,17 @@ server:
 spring:
 #Database
   datasource:
-    url: jdbc:mysql://${env.DB_HOST}:${env.DB_PORT}/${env.DB_NAME}
+    url: jdbc:postgresql://${env.DB_HOST}:${env.DB_PORT}/${env.DB_NAME}
     username: ${env.DB_USER}
     password: ${env.DB_PASS}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   application:
     name: user-service
 
