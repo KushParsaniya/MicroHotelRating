@@ -1,3 +1,5 @@
+# MicroHotelRating 
+
 # Hotel Review Microservice Project
 
 This project is a collection of microservices developed using Spring Boot for managing hotel reviews. It utilizes PostgreSQL and MongoDB as its databases, Netflix Eureka for service registry, an API Gateway, OpenFeign for declarative REST client, and Resilience4j for fault tolerance.
