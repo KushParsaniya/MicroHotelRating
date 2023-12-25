@@ -1,4 +1,4 @@
-# MicroHotelRating 
+# Micro-HotelRating 
 
 # Hotel Review Microservice Project
 
